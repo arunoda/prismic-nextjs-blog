@@ -3,6 +3,7 @@ import ms from 'ms'
 import { getPostList, getPost } from '../../lib/data'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
+import { RichText } from 'prismic-reactjs'
 
 export default function Post ({ post }) {
   const router = useRouter()
@@ -27,13 +28,15 @@ export default function Post ({ post }) {
 
   return (
     <Theme>
-      <div className='post'>
+        <div className='post'>
         <div className='time'>Published {ms(Date.now() - post.createdAt, { long: true })} ago</div>
-        <h1>{post.title}</h1>
+        <h1>{RichText.asText(post.title)}</h1>
         <div className='content'>
-          <div>{post.content}</div>
+            <RichText
+                render={post.content}
+            />
         </div>
-      </div>
+        </div>
     </Theme>
   )
 }
