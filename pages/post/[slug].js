@@ -4,6 +4,7 @@ import { getPostList, getPost } from '../../lib/data'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
 import { RichText } from 'prismic-reactjs'
+import createPrismicLink from '../../lib/create-prismic-link'
 
 export default function Post ({ post }) {
   const router = useRouter()
@@ -32,9 +33,10 @@ export default function Post ({ post }) {
         <div className='time'>Published {ms(Date.now() - post.createdAt, { long: true })} ago</div>
         <h1>{RichText.asText(post.title)}</h1>
         <div className='content'>
-            <RichText
-                render={post.content}
-            />
+          <RichText
+              render={post.content}
+              serializeHyperlink={createPrismicLink}
+          />
         </div>
         </div>
     </Theme>
