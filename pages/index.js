@@ -2,6 +2,7 @@ import Link from 'next/link'
 import Theme from '../components/Theme'
 import ms from 'ms'
 import { getPostList } from '../lib/data'
+import { RichText } from 'prismic-reactjs'
 
 export default function Home ({ postList }) {
   return (
@@ -12,7 +13,7 @@ export default function Home ({ postList }) {
             <Link href='/post/[slug]' as={`/post/${post.slug}`}>
               <a>
                 <div className='time'>{ms(Date.now() - post.createdAt, { long: true })} ago</div>
-                <div className='title'>{post.title}</div>
+                <div className='title'>{RichText.asText(post.title)}</div>
               </a>
             </Link>
           </div>
